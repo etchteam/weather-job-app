@@ -1,4 +1,7 @@
 const express = require("express");
+require('dotenv').config();
+
+const { getData } = require("./api/proxy.js");
 
 const PORT = 3001;
 const app = express();
@@ -14,8 +17,14 @@ function logger(req, res, next) {
 }
 app.use(logger);
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello" });
+app.get("/api", async (req, res, next) => {
+    try {
+        const data = await getData();
+        console.log(data);
+        res.json(data);
+    } catch (err) {
+        next(err);
+    }
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

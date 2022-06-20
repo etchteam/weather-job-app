@@ -7,7 +7,7 @@ function App() {
   useEffect(() => {
     fetch("/api")
       .then((res) => res.json())
-      .then((data) => setData(data.message));
+      .then((data) => setData(data.city));
   }, []);
 
   return (
