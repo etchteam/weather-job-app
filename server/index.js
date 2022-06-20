@@ -14,4 +14,8 @@ function logger(req, res, next) {
 }
 app.use(logger);
 
+app.get("/api", (req, res) => {
+    res.json({ message: "Hello" });
+});
+
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
