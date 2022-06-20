@@ -1,24 +1,42 @@
 const axios = require("axios");
+const { getCachedData, cacheData } = require("./cache.js");
 
 const IPINFO_URL = 'https://ipinfo.io';
 const WEATHER_URL = 'https://api.met.no/weatherapi/locationforecast/2.0/compact';
 const USER_AGENT_HEADER = 'WeatherApp/1.0.0 github.com/LRN2111/weather-job-app';
 
 function getData() {
+    let key;
+    let weatherData;
+    let cacheDataFound = false;
     const ipPromise = getIPPromise();
-    const weatherPromise = ipPromise
-        .then(
-            function(ipResult) { return getWeatherPromise(ipResult.data.loc); },
-            handleError
-        );
+    const weatherPromise = ipPromise.then(
+        (ipResult) => {
+            key = ipResult.data.ip;
+            weatherData = getCachedData(key);
+            if (weatherData) {
+                console.log(`Cached data found for ${key}. Expires at ${weatherData.expires}`);
+                cacheDataFound = true;
+                return new Promise((resolve, reject) => {resolve(weatherData)});
+            } else {
+                console.log(`No cached data found for ${key}. Fetching data...`);
+                return getWeatherPromise(ipResult.data.loc);
+            }
+        }
+    )
     return Promise.all([ipPromise, weatherPromise]).then(
         function([ipResult, weatherResult]) {
             const ipData = handleIPResolve(ipResult);
             const weatherData = handleWeatherResolve(weatherResult);
-            return {...ipData, ...weatherData};
+            const data = {...ipData, ...weatherData};
+            if (!cacheDataFound) {
+                const ttl = (new Date(weatherResult.headers["expires"]) - new Date()) / 1000;
+                cacheData(key, weatherData, ttl);
+            }
+            return data;
         },
         handleError
-    );
+    )
 }
 
 function getIPPromise() {
@@ -42,16 +60,20 @@ function getWeatherPromise(loc) {
 }
 
 function handleIPResolve(response) {
-    [ lat, lon ] = parseLocation(response.data.loc);
-    const { city, region, country } = response.data;
-    return {lat: lat, lon: lon, city: city, region: region, country: country};
+    const [ lat, lon ] = parseLocation(response.data.loc);
+    const { city, region, country, ip } = response.data;
+    return {lat: lat, lon: lon, city: city, region: region, country: country, ip: ip};
 };
 
 function handleWeatherResolve(response) {
-    return {
-        weather: response.data.properties,
-        expires: response.headers['expires']
-    };
+    if (response.hasOwnProperty("headers")) {
+        return {
+            weather: response.data.properties,
+            expires: response.headers['expires']
+        };
+    } else {
+        return response;
+    }
 };
 
 

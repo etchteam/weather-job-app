@@ -20,7 +20,6 @@ app.use(logger);
 app.get("/api", async (req, res, next) => {
     try {
         const data = await getData();
-        console.log(data);
         res.json(data);
     } catch (err) {
         next(err);
