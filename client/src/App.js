@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import WeatherContainer from './WeatherContainer';
 
 function App() {
   const [error, setError] = useState(null);
@@ -11,7 +12,6 @@ function App() {
     fetch("/api")
       .then((res) => res.json())
       .then((result) => {
-        console.log(result)
         setIsLoaded(true);
         setLocationData({
           lat: result.lat,
@@ -36,7 +36,10 @@ function App() {
   } else {
     return (
       <div className='container-fluid'>
-        Data found
+        <WeatherContainer
+          locationData={locationData}
+          weatherData={weatherData}
+        />
       </div>
     );
   }
