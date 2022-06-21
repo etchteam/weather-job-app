@@ -7,7 +7,7 @@ function LeftPanel(props) {
                 <div className="card">
                     <div className="card-header text-body">
                         <div className="text-center">
-                            {locationData.city}, {locationData.country}
+                        <i className="fa-solid fa-location-dot" id="locationMarker"></i> {locationData.city}, {locationData.country}
                         </div>
                         <div className="w-100 clearfix">
                             <span className="float-start">
