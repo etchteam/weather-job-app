@@ -1,7 +1,7 @@
-import WeatherIcon from './WeatherIcon';
+import CurrentWeather from './CurrentWeather';
 
 function LeftPanel(props) {
-    const { currentWeather, datetime, locationData, weatherUnits } = props;
+    const { currentWeather, datetime, locationData, units } = props;
     return (
         <div className="col-lg-3 bg-dark text-white">
             <div className="mt-2">
@@ -27,10 +27,10 @@ function LeftPanel(props) {
                             </span>
                         </div>
                     </div>
-                    <div className="card-body pt-1 text-center">
-                        <WeatherIcon
-                            weatherData={currentWeather.data}
-                            width={150}
+                    <div className="card-body pt-1">
+                        <CurrentWeather 
+                            weather={currentWeather}
+                            units={units}
                         />
                     </div>
                 </div>

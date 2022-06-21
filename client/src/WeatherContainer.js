@@ -21,7 +21,7 @@ function WeatherContainer(props) {
             <LeftPanel
                 locationData={locationData}
                 currentWeather={weatherData.timeseries[0]}
-                weatherUnits={units}
+                units={units}
                 datetime={datetime}
             />
             <RightPanel
