@@ -16,8 +16,8 @@ module.exports = {
       if (res.data) {
         const locationExploded = res.data.loc.split(',');
 
-        this_.lat = locationExploded[0];
-        this_.lng = locationExploded[1];
+        this_.lat = parseFloat(locationExploded[0]);
+        this_.lng = parseFloat(locationExploded[1]);
       }
 
     })
