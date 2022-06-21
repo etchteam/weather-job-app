@@ -35,7 +35,9 @@ function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>Data found</div>
+      <div className='container-fluid'>
+        Data found
+      </div>
     );
   }
 }
