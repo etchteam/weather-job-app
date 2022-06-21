@@ -1,3 +1,5 @@
+import WeatherIcon from './WeatherIcon';
+
 function LeftPanel(props) {
     const { currentWeather, datetime, locationData, weatherUnits } = props;
     return (
@@ -24,6 +26,12 @@ function LeftPanel(props) {
                                 })}
                             </span>
                         </div>
+                    </div>
+                    <div className="card-body pt-1 text-center">
+                        <WeatherIcon
+                            weatherData={currentWeather.data}
+                            width={150}
+                        />
                     </div>
                 </div>
             </div>
