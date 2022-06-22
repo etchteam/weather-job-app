@@ -1,24 +1,16 @@
 # Weather (job) application
 
-[Etch](https://etch.co) is hiring a [full-stack developer](https://etch.co/jobs/full-stack-developer)!
+## Set up
 
-## Code challenge
+First cd into weather-app-backend and run **npm i** followed by **npm start** - You can navigate to http://localhost:3001/api/weather-data to view the API outcome.
 
-The best way to understand a developer is through their code.
+Then cd into weather-app and run **npm i** followed by **npm start** - Navigate to http://localhost:3000/ to view the final product.
 
-We'd like you to set up a simple weather app to display todays weather.
+## About
 
-### Requirements
+This is my first time using Node.js as a backend - after working primarily in PHP for server-side this was definitely stepping outside of my comfort zone!
 
-- Fork this repo and submit a PR when you're done. A few notes about the how's and why's would be great.
-- Create the frontend using [React](https://reactjs.org/) (or [Preact](https://preactjs.com/))
-- Use Node.JS to power the backend
-- Proxy the API (to mask the 3rd party api calls)
-- Use [IPInfo](https://ipinfo.io/) to get the user's location.
-- Use [MET Norway Weather API](https://api.met.no/) to get the weather data.
-- Display todays weather on the page any way you like.
+The backend is powered by Express.js which so far has proved pretty easy to use. It is split up into 2 controllers, one to determine the user's location based off their IP and the other to pull through the weather for that location. The resulting data is displayed in JSON format ready to be consumed by the frontend.
 
-### Tips
+The frontend is built with React, again something I have used a few times but still have a lot of learning to be done. We have the home page which is responsible for fetching the data from the backend API and splitting it up into datasets for today and tomorrow's weather. For both displays the 'Table' component is rendered, with a 'Table Item' component nested within it for each hour of the day.
 
-- The available clients for the weather API seem to be outdated and do not work. Use the API directly.
-- Use something like [localhost.run](https://localhost.run/) to get a real remote IP for IPInfo.

@@ -57,7 +57,7 @@ export default class TableItem extends React.Component {
 
           <div className="other-attributes">
             <span className="other-attribute"><strong>Cloud:</strong> {this.state.cloud}%</span>
-            <span className="other-attribute"><strong>Humidity %:</strong> {this.state.humidity}%</span>
+            <span className="other-attribute"><strong>Humidity:</strong> {this.state.humidity}%</span>
           </div>
 
         </div>

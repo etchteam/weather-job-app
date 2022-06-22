@@ -8,7 +8,13 @@ const weather = require('./../src/weather');
 router.get('/api/weather-data', function(req, res, next) {
 
   const retrieveLatLng = new Promise((resolve, reject) => {
-    location.getLatLng();
+    var ip = req.socket.remoteAddress;
+
+    // If IP is local (ie. ::1) then just set it to another IP for testability
+    if (ip == '::1') {
+      ip = '90.242.4.94';
+    }
+    location.getLatLng(ip);
     
     // Wait for response
     var waitTimer = setInterval(() => {

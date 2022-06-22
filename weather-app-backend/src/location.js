@@ -6,11 +6,12 @@ module.exports = {
   lat: '',
   lng: '',
   error: '',
-  getLatLng: function() {
+  getLatLng: function(ip) {
 
     const this_ = this;
 
-    axios.get(`https://ipinfo.io/90.242.4.94?token=${ipInfoToken}`)
+    // Request the user's IP info.
+    axios.get(`https://ipinfo.io/${ip}?token=${ipInfoToken}`)
     .then(function(res) {
 
       if (res.data) {
