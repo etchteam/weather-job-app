@@ -52,7 +52,7 @@ router.get('/api/weather-data', function(req, res, next) {
 
     retrieveWeatherData.then(() => {
 
-      // Finally, display the date.
+      // Finally, display the data.
       res.send(weather.data);
 
     });
