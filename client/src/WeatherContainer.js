@@ -26,6 +26,8 @@ function WeatherContainer(props) {
             />
             <RightPanel
                 weatherData={weatherData}
+                units={units}
+                datetime={datetime}
             />
         </div>
     )
