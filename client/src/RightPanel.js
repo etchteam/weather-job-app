@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import Header from './Header';
+
 const viewOptions = {
     today: 'Today',
     tomorrow: 'Tomorrow',
@@ -7,9 +10,15 @@ const viewOptions = {
 function RightPanel(props) {
     const { weatherData } = props;
 
+    const [selectedView, setSelectedView ] = useState('today');
+
     return (
         <div className="col-lg-9 bg-info px-0">
-            
+            <Header
+                viewOptions={viewOptions}
+                selectedView={selectedView}
+                setSelectedView={setSelectedView}
+            />
         </div>
     )
 };
