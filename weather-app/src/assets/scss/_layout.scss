@@ -1,0 +1,29 @@
+body {
+  background-color: #fafafa;
+  font-family: sans-serif;
+}
+
+.weather-wrap {
+  display: block;
+  max-width: 100%;
+  width: 1000px;
+  margin: 0 auto;
+  margin: 100px auto;
+  background-color: white;
+  border: 1px solid #f2f2f2;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+  padding: 50px 16px;
+
+  .weather-title {
+    display: block;
+    text-align: center;
+    color: #333;
+    margin-bottom: 0;
+  }
+
+  .date-today {
+    display: block;
+    text-align: center;
+    color: #777;
+  }
+}

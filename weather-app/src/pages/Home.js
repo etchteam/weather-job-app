@@ -10,15 +10,20 @@ export default class Home extends React.Component {
 
     this.state = {
       units: [],
-      days: [],
+      todaysWeather: {},
+      tomorrowsWeather: {},
       loading: true,
       dateToday: '',
+      dateTomorrow: '',
     };
 
     const date = new Date();
-    const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-    this.state.dateToday = dayOfWeek + ' ' ;
+    const fullDateToday = date.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    this.state.dateToday = fullDateToday + ' ' ;
+    
+    date.setDate(date.getDate() + 1);
+    const fullDateTomorrow = date.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    this.state.dateTomorrow = fullDateTomorrow + ' ' ;
   }
 
   componentDidMount() {
@@ -35,9 +40,20 @@ export default class Home extends React.Component {
       if (res.data && res.data.units && res.data.days) {
 
         // Dataset structure is available - unpack the data.
+        const days = res.data.days;
+
+        const date = new Date();
+        const todaysDate = date.getDate();
+        const todaysWeather = days[todaysDate];
+
+        date.setDate(date.getDate() + 1);
+        const tomorrowsDate = date.getDate();
+        const tomorrowsWeather = days[tomorrowsDate];
+
         this.setState({
           units: res.data.units,
-          days: res.data.days,
+          todaysWeather: todaysWeather,
+          tomorrowsWeather: tomorrowsWeather,
           loading: false,
         });
 
@@ -68,11 +84,19 @@ export default class Home extends React.Component {
       return(
         <>
           <div className="weather-wrap">
-            <h1 className="weather-title">Weather</h1>
-            <h2 className="date-today">{this.state.dateToday}</h2>
+            <h1 className="weather-title">Today's Weather</h1>
+            <h3 className="date-today">{this.state.dateToday}</h3>
             <Table 
               units={this.state.units}
-              days={this.state.days}></Table>
+              weather={this.state.todaysWeather}></Table>
+          </div>
+          
+          <div className="weather-wrap">
+            <h1 className="weather-title">Tomorrow's Weather</h1>
+            <h3 className="date-today">{this.state.dateTomorrow}</h3>
+            <Table 
+              units={this.state.units}
+              weather={this.state.tomorrowsWeather}></Table>
           </div>
         </>
       )

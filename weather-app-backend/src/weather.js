@@ -37,11 +37,19 @@ module.exports = {
                 hourly: [],
               };
             }
+
+            // Concatenate details object with 'next 1 hours' precipitation & cloud symbol 
+            let hourData = hour.data.instant.details;
+
+            if (hour.data.next_1_hours) {
+              hourData.weather_symbol = hour.data.next_1_hours.summary.symbol_code;
+              hourData.precipitation_amount = hour.data.next_1_hours.details.precipitation_amount;
+            }
             
             // Insert the data for this hour
             this_.data.days[date.getDate()].hourly.push({
               hour: date.getHours(),
-              data: hour.data.instant.details,
+              data: hourData,
             });
 
           });

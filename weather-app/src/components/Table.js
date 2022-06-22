@@ -8,18 +8,11 @@ export default class Table extends React.Component {
     super(props);
 
     this.state = {
-      todaysWeather: {},
+      weather: {},
     }
 
-    // Get the current date
-    const date = new Date();
-    const currentDate = date.getDate();
+    this.state.weather = props.weather;
 
-    // This can be extended to show a weekly format of weather 
-    // but for this we will only show today's.
-    this.state.todaysWeather = props.days[currentDate];
-
-    console.log(this.state.todaysWeather);
   }
 
   render() {
@@ -28,7 +21,7 @@ export default class Table extends React.Component {
       <>
         <div className="weather-table">
 
-          {this.state.todaysWeather.hourly.map((hour) => {
+          {this.state.weather.hourly.map((hour) => {
             return(<TableItem key={hour} hour={hour.hour} data={hour.data}></TableItem>)
           })}
 
