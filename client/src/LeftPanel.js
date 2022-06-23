@@ -1,40 +1,22 @@
-import CurrentWeather from './CurrentWeather';
+import InfoBox from './InfoBox';
+import AboutModal from './AboutModal';
 
 function LeftPanel(props) {
-    const { currentWeather, datetime, locationData, units } = props;
+    const { currentWeather, datetime, locationData, units, updatedAt } = props;
     return (
         <div className="col-lg-3 bg-dark text-white">
-            <div className="mt-2">
-                <h1 className="display-2 text-center">Weather</h1>
-                <div className="card">
-                    <div className="card-header text-body">
-                        <div className="text-center">
-                        <i className="fa-solid fa-location-dot" id="locationMarker"></i> {locationData.city}, {locationData.country}
-                        </div>
-                        <div className="w-100 clearfix">
-                            <span className="float-start">
-                                {datetime.toLocaleString('en-GB', {
-                                    weekday: "long",
-                                    month: "long",
-                                    day: "numeric",
-                                })}
-                            </span>
-                            <span className="float-end">
-                                {datetime.toLocaleString('en-GB', {
-                                    hour: "numeric",
-                                    minute: "2-digit",
-                                })}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="card-body pt-1">
-                        <CurrentWeather 
-                            weather={currentWeather}
-                            units={units}
-                        />
-                    </div>
-                </div>
+            <InfoBox
+                locationData={locationData}
+                datetime={datetime}
+                currentWeather={currentWeather}
+                units={units}
+            />
+            <div className='text-center'>
+                <button className='btn btn-info m-2' data-bs-toggle="modal" data-bs-target="#aboutModal">About</button>
             </div>
+            <AboutModal
+                updatedAt={updatedAt}
+            />
         </div>
     )
 };

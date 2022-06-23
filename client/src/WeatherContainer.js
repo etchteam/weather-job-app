@@ -23,6 +23,7 @@ function WeatherContainer(props) {
                 currentWeather={weatherData.timeseries[0]}
                 units={units}
                 datetime={datetime}
+                updatedAt={weatherData.meta.updated_at}
             />
             <RightPanel
                 weatherData={weatherData}
